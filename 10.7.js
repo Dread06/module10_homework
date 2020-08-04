@@ -1,38 +1,22 @@
-const arr = [3, 8, 1, 2, 3,'', 0, 12.76, 4, 5, 'h', 8, '/', null, undefined, 87, 0, -67];
+const arr = [3, 8, 1, 2, 3,'', 0, 12.76, 4, 5, 'h', 8, '/', null, undefined, 87, 0, -67, NaN];
 let counterOdd = 0;
 let counterEven = 0;
 let counterZero = 0;
 
-//Поиск и подсчет нулей в массиве
-for (i = 0; i < arr.length; i++) {
-    if (arr[i] !== 0) {
-        continue;
+for (let i = 0; i < arr.length; i++) {
+    if (typeof arr[i] === 'number' && !isNaN(arr[i])) {
+        if (arr[i] === 0) {
+            counterZero++;
+        } else if (arr[i] % 2 === 0) {
+            counterEven++;
+        } else {
+            counterOdd++;
+        }
     }
-    counterZero++
 }
 
-
-//Подсчет нечетных чисел
-for (i = 0; i < arr.length; i++) {
-    if (typeof arr[i] !== 'number') {//Исключение ненумерных типов
-        continue;
-    } else if (arr[i] % 2 == 0) {//Исключение четных чисел
-        continue;
-    }
-    counterOdd++;
-}
-
-// Подсчет четных чисел
-for (i = 0; i < arr.length; i++) {
-    if (typeof arr[i] !== 'number') {//Исключение ненумерных типов
-        continue;
-    } else if (arr[i] % 2 !== 0) {//Исключение нечетных чисел
-        continue;
-
-    }
-    counterEven++;
-}
-
-    console.log(`Итого четных чисел (включая 0): ${counterEven}`);
-    console.log(`Из них 0: ${counterZero}`);
+    console.log(`Итого четных чисел: ${counterEven}`);
+    console.log(`Итого нулей: ${counterZero}`);
     console.log(`Итого нечетных чисел: ${counterOdd}`);
+
+// Задание выполнено верно (хотя и с небольшой неточностью - нули нужно было считать отдельно, т.е. они не должны учитываться в четных числах). Однако использование 3-х циклов в данном случае не имеет смысла и только замедляет работу программы: посчитать четные\нечетные элементы можно и за один проход по массиву. Кроме того, необходимо добавить проверку на значение NaN, потому что typeof NaN дает number, но при этом NaN не является числом. Выше исправила на более правильный вариант.
